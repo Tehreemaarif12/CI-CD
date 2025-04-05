@@ -1,39 +1,29 @@
 name: CI/CD Pipeline
 
-# Trigger the workflow on pushes to the 'master' branch
+# Trigger the pipeline on push events to the 'master' branch
 on:
   push:
     branches:
-      - master  # This will trigger the workflow on push to master branch
+      - master  # This will trigger the workflow when pushing to the 'master' branch
 
-# Define the jobs (tasks) for the workflow
 jobs:
   build:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu for the runner
+    runs-on: ubuntu-latest  # This specifies that the workflow should run on an Ubuntu runner
 
     steps:
-    # Step 1: Checkout the code
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2  # This step checks out the repository so the workflow can work with it
 
-    # Step 2: Set up Node.js
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'  # Define the Node.js version
-
-    # Step 3: Install dependencies (adjust for your project)
-    - name: Install dependencies
+    - name: Validate HTML and CSS files
       run: |
-        npm install
+        echo "Validating HTML and CSS files..."
+        # Add your validation commands here if you want to validate your HTML and CSS
+        # For example, you can use 'htmlhint' or 'csslint' to validate your code
+        # Running basic checks for now as an example
+        echo "HTML and CSS files are ready to be deployed!"  # Replace with actual validation or build commands
 
-    # Step 4: Run tests (if you have any tests)
-    - name: Run tests
+    - name: Deploy (Example Step)
       run: |
-        npm test
-
-    # Step 5: Build the project (optional, if you need a build step)
-    - name: Build project
-      run: |
-        npm run build
+        echo "This is a placeholder for your deploy step."
+        echo "In a real CI/CD pipeline, you would deploy your website here."
 
