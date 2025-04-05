@@ -1,34 +1,39 @@
 name: CI/CD Pipeline
 
+# Trigger the workflow on pushes to the 'master' branch
 on:
   push:
     branches:
-      - main  # This triggers the workflow when you push to the 'main' branch
-  pull_request:
-    branches:
-      - main  # This triggers the workflow on pull requests
+      - master  # This will trigger the workflow on push to master branch
 
+# Define the jobs (tasks) for the workflow
 jobs:
   build:
-    runs-on: ubuntu-latest  # This specifies the OS for the CI pipeline
+    runs-on: ubuntu-latest  # Use the latest Ubuntu for the runner
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2  # This checks out your code for use in the workflow
+    # Step 1: Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js (if you are using Node.js)
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # You can specify a different version if needed
+    # Step 2: Set up Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Define the Node.js version
 
-      - name: Install Dependencies (for Node.js projects)
-        run: |
-          npm install  # This installs the dependencies listed in package.json
-          
-      - name: Run Tests (if you have tests in your project)
-        run: |
-          npm test  # If you have tests set up, this command will run them
+    # Step 3: Install dependencies (adjust for your project)
+    - name: Install dependencies
+      run: |
+        npm install
 
-      - name: Deploy (Optional - for CD)
-        run: |
-          echo "Deploying the app!"  # This is a placeholder; replace with your actual deploy steps
+    # Step 4: Run tests (if you have any tests)
+    - name: Run tests
+      run: |
+        npm test
+
+    # Step 5: Build the project (optional, if you need a build step)
+    - name: Build project
+      run: |
+        npm run build
+
